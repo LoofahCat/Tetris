@@ -1,0 +1,33 @@
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\gameFont.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\i.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\j.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\l.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\o.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\s.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\t.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\z.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Tetris.exe
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Tetris.deps.json
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Tetris.runtimeconfig.json
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Tetris.runtimeconfig.dev.json
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Tetris.dll
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Tetris.pdb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libSDL2-2.0.so.0
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libopenal.so.1
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\runtimes\osx\native\libSDL2-2.0.0.dylib
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\runtimes\osx\native\libopenal.1.dylib
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\SDL2.dll
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
+C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.csprojAssemblyReference.cache
+C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.AssemblyInfoInputs.cache
+C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.AssemblyInfo.cs
+C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.csproj.CoreCompileInputs.cache
+C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.csproj.CopyComplete
+C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.dll
+C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.pdb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.genruntimeconfig.cache
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\Main Menu.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\Main Screen.xnb

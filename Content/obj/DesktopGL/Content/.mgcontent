@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/gameFont.spritefont</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/i.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/j.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/l.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Menu.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Screen.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/o.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/s.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/t.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/z.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

@@ -1,0 +1,11 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/gameFont.spritefont","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/gameFont.xnb","FontDescriptionProcessor","SpriteFontContent",2009,21538,0.8888741
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/i.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/i.xnb","TextureProcessor","Texture2DContent",2467,159665,1.2099955
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/j.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/j.xnb","TextureProcessor","Texture2DContent",1545,237685,0.0361308
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/l.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/l.xnb","TextureProcessor","Texture2DContent",1549,236497,0.0304236
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Menu.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/Main Menu.xnb","TextureProcessor","Texture2DContent",9432,3240085,0.8038764
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Screen.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/Main Screen.xnb","TextureProcessor","Texture2DContent",18122,3240085,0.2693601
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/o.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/o.xnb","TextureProcessor","Texture2DContent",2286,158489,0.0210853
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/s.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/s.xnb","TextureProcessor","Texture2DContent",1310,237293,0.0277248
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/t.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/t.xnb","TextureProcessor","Texture2DContent",1256,236497,0.0270245
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/z.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/z.xnb","TextureProcessor","Texture2DContent",1318,237293,0.0263616
