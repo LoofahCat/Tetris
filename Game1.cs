@@ -10,14 +10,9 @@ using System.IO;
 
 /*
  * TODO:
- * 1. Get a shape to appear on the board
- * 2. Get a shape to fall at an increasing rate
  * 3. Make shape collide with any occupied cells. Stop all movement of cells in the shape. Record locations. Check for complete lines. Trigger score and gravity.
- * 4. Make next shape appear in window.
- * 5. Make a 'forbidden zone' in the board. Falling shapes are fine to exist there. Any stopped cell in the forbidden zone will trigger loss
- * 6. Make shape appear/fall from forbidden zone. Make them invisible before they hit the board space (cover them with a panel?)
  * 8. Add song and sound effects
- * 9. Add Particle Effects on Line Clear.
+ * 9. Add Particle Effects on Line Clear and cell save.
  * 10. Add AI
  * 11. Trigger AI after 10 seconds of idle menu.
  */
@@ -27,43 +22,159 @@ namespace Tetris
     public class Shape {
         public int[,] cells;
         public Game1.SHAPE_TYPE type;
-        bool falling;
 
         public Shape(Game1.SHAPE_TYPE shape)
         {
             type = shape;
-            falling = true;
             
             switch (type) {
                 case Game1.SHAPE_TYPE.I:
-                    cells = new int[4, 2] { { 0, 5 }, { 1, 5 }, { 2, 5 }, { 3, 5 } };
+                    cells = new int[4, 2] { { 5, 0 }, { 5, 1 }, { 5, 2 }, { 5, 3 } };
                     break;
                 case Game1.SHAPE_TYPE.J:
-                    cells = new int[4, 2] { { 0, 5 }, { 1, 5 }, { 2, 5 }, { 2, 4 } };
+                    cells = new int[4, 2] { { 5, 0 }, { 5, 1 }, { 5, 2 }, { 4, 2 } };
                     break;
                 case Game1.SHAPE_TYPE.L:
-                    cells = new int[4, 2] { { 0, 5 }, { 1, 5 }, { 2, 5 }, { 2, 6 } };
+                    cells = new int[4, 2] { { 5, 0 }, { 5, 1 }, { 5, 2 }, { 6, 2 } };
                     break;
                 case Game1.SHAPE_TYPE.O:
-                    cells = new int[4, 2] { { 0, 5 }, { 0, 4 }, { 1, 5 }, { 1, 4 } };
+                    cells = new int[4, 2] { { 5, 0 }, { 4, 0 }, { 5, 1 }, { 4, 1 } };
                     break;
                 case Game1.SHAPE_TYPE.S:
-                    cells = new int[4, 2] { { 0, 5 }, { 0, 6 }, { 1, 5 }, { 1, 4 } };
+                    cells = new int[4, 2] { { 5, 0 }, { 6, 0 }, { 5, 1 }, { 4, 1 } };
                     break;
                 case Game1.SHAPE_TYPE.T:
-                    cells = new int[4, 2] { { 0, 5 }, { 0, 6 }, { 0, 4 }, { 1, 5 } };
+                    cells = new int[4, 2] { { 5, 0 }, { 6, 0 }, { 4, 0 }, { 5, 1 } };
                     break;
                 case Game1.SHAPE_TYPE.Z:
-                    cells = new int[4, 2] { { 0, 5 }, { 0, 4 }, { 1, 5 }, { 1, 6 } };
+                    cells = new int[4, 2] { { 5, 0 }, { 4, 0 }, { 5, 1 }, { 6, 1 } };
                     break;
             }
 
         }
+
+        #region "Shape Movement Methods"
+        public void fall()
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                cells[i, 1] += 1;
+            }
+        }
+
+        public bool canFall(Tile[,] board)
+        {
+            bool fall = true;
+            for(int i = 0; i < 4; i++)
+            {
+                if(cells[i,1] == 24)//tile has reached the bottom of the screen
+                {
+                    return false;
+                }
+                if(board[cells[i,0], cells[i, 1] + 1].isFilled)
+                {
+                    return false;
+                }
+            }
+            return fall;
+        }
+
+        public bool canMoveRight(Tile[,] board)
+        {
+            bool move = true;
+            for(int i = 0; i < 4; i++)
+            {
+                if(cells[i,0] == 9)//tile has reached right side of screen
+                {
+                    return false;
+                }
+                if(board[cells[i,0] + 1, cells[i, 1]].isFilled)
+                {
+                    return false;
+                }
+            }
+            return move;
+        }
+
+        public void moveRight()
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                cells[i, 0] += 1;
+            }
+        }
+
+        public bool canMoveLeft(Tile[,] board)
+        {
+            bool move = true;
+            for (int i = 0; i < 4; i++)
+            {
+                if (cells[i, 0] == 0)//tile has reached left side of screen
+                {
+                    return false;
+                }
+                if (board[cells[i, 0] - 1, cells[i, 1]].isFilled)
+                {
+                    return false;
+                }
+            }
+            return move;
+        }
+
+        public void moveLeft()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                cells[i, 0] -= 1;
+            }
+        }
+
+        public void rotRight(Tile[,] board)
+        {
+            switch (type) {
+                case Game1.SHAPE_TYPE.I:
+                    break;
+                case Game1.SHAPE_TYPE.J:
+                    break;
+                case Game1.SHAPE_TYPE.L:
+                    break;
+                case Game1.SHAPE_TYPE.O://Doesn't need to rotate
+                    break;
+                case Game1.SHAPE_TYPE.S:
+                    break;
+                case Game1.SHAPE_TYPE.T:
+                    break;
+                case Game1.SHAPE_TYPE.Z:
+                    break;
+            }
+        }
+        public void rotLeft(Tile[,] board)
+        {
+            switch (type)
+            {
+                case Game1.SHAPE_TYPE.I:
+                    break;
+                case Game1.SHAPE_TYPE.J:
+                    break;
+                case Game1.SHAPE_TYPE.L:
+                    break;
+                case Game1.SHAPE_TYPE.O://Doesn't need to rotate
+                    break;
+                case Game1.SHAPE_TYPE.S:
+                    break;
+                case Game1.SHAPE_TYPE.T:
+                    break;
+                case Game1.SHAPE_TYPE.Z:
+                    break;
+            }
+        }
+        #endregion
     }
 
 
     public class Game1 : Game
     {
+        #region "Class Properties"
         public enum SHAPE_TYPE { I, J, L, O, S, T, Z }
         public enum SCREEN { LOSE, QUIT, PLAY, MAIN, HIGH_SCORES, CREDITS, CONTROLS, NULL }
         public enum ACTION { PLAY, HIGH_SCORES, CREDITS, CONTROLS, BACK, QUIT, CONTINUE, CHANGE_ROTRIGHT, CHANGE_ROTLEFT, CHANGE_MOVERIGHT, CHANGE_MOVELEFT, CHANGE_DROP, CHANGE_HARDDROP, NULL }
@@ -90,8 +201,9 @@ namespace Tetris
         private Texture2D zCell;
         private Texture2D zShape;
         private List<Texture2D> cellTextures;
+        private List<Texture2D> shapeTextures;
         private Texture2D nextShape;
-
+        private SHAPE_TYPE nextType;
         private Shape currentShape;
         private SCREEN curScreen;
         private ACTION action;
@@ -108,6 +220,12 @@ namespace Tetris
         Keys hardDrop;
         Keys moveLeft;
         Keys moveRight;
+        bool dropPressed;
+        bool hardDropPressed;
+        bool moveLeftPressed;
+        bool moveRightPressed;
+        bool rotLeftPressed;
+        bool rotRightPressed;
         int screenWidth;
         int screenHeight;
         Color iColor;
@@ -119,8 +237,12 @@ namespace Tetris
         Color zColor;
         Vector2 cell;
         bool changingKey;
-        float gravityMultiplier;
+        double shapeFallRate;
+        double fallRateRestore;
+        TimeSpan lastShapeFallTime;
+        #endregion
 
+        #region "Constructor"
         public Game1()
         {
             random = new Random();
@@ -147,63 +269,20 @@ namespace Tetris
             moveRight = KeyConfig[5];
 
             cellTextures = new List<Texture2D>();
+            shapeTextures = new List<Texture2D>();
             changingKey = false;
+            dropPressed = false;
+            hardDropPressed = false;
+            moveLeftPressed = false;
+            moveRightPressed = false;
+            rotLeftPressed = false;
+            rotRightPressed = false;
+            shapeFallRate = 1000;
+            fallRateRestore = 1000;
         }
+        #endregion
 
-        public SHAPE_TYPE getRandomShape()
-        {
-            Array values = Enum.GetValues(typeof(SHAPE_TYPE));
-            SHAPE_TYPE s = (SHAPE_TYPE)values.GetValue(random.Next(values.Length));
-            return s;
-        }
-
-        protected override void Initialize()
-        {
-            _graphics.IsFullScreen = false;
-            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            _graphics.ApplyChanges();
-            screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            cell = new Vector2((int)(screenWidth * 0.0185f), (int)(screenHeight * 0.03287f));
-            gameBoard = new GameBoard(screenWidth, screenHeight, cell);
-            gameBoard.initializeBoardValues();
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            MenuTexture = Content.Load<Texture2D>("Main Menu");
-            GameBackground = Content.Load<Texture2D>("Main Screen");
-            iCell = Content.Load<Texture2D>("iCell");
-            iShape = Content.Load<Texture2D>("i");
-            jCell = Content.Load<Texture2D>("jCell");
-            jShape = Content.Load<Texture2D>("j");
-            lCell = Content.Load<Texture2D>("lCell");
-            lShape = Content.Load<Texture2D>("l");
-            oCell = Content.Load<Texture2D>("oCell");
-            oShape = Content.Load<Texture2D>("o");
-            sCell = Content.Load<Texture2D>("sCell");
-            sShape = Content.Load<Texture2D>("s");
-            tCell = Content.Load<Texture2D>("tCell");
-            tShape = Content.Load<Texture2D>("t");
-            zCell = Content.Load<Texture2D>("zCell");
-            zShape = Content.Load<Texture2D>("z");
-
-            cellTextures.Add(iCell);
-            cellTextures.Add(jCell);
-            cellTextures.Add(lCell);
-            cellTextures.Add(oCell);
-            cellTextures.Add(sCell);
-            cellTextures.Add(tCell);
-            cellTextures.Add(zCell);
-
-            nextShape = zShape;
-            myMenu = new Menu(Content, screenWidth, screenHeight, drop, rotRight, rotLeft, moveRight, moveLeft, hardDrop);
-        }
-
+        #region "Memory Persistence"
         public void LoadKeys()
         {
             KeyConfig = new Keys[6];
@@ -259,10 +338,73 @@ namespace Tetris
 
         public void Quit()
         {
-            //SaveHighScores();
-            //SaveKeys();
+            SaveHighScores();
+            SaveKeys();
             Exit();
         }
+        #endregion
+
+        public SHAPE_TYPE getRandomShape()
+        {
+            Array values = Enum.GetValues(typeof(SHAPE_TYPE));
+            SHAPE_TYPE s = (SHAPE_TYPE)values.GetValue(random.Next(values.Length));
+            return s;
+        }
+
+        protected override void Initialize()
+        {
+            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _graphics.ApplyChanges();
+            screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            cell = new Vector2((int)(screenWidth * 0.0185f), (int)(screenHeight * 0.03287f));
+            gameBoard = new GameBoard(screenWidth, screenHeight, cell);
+            gameBoard.initializeBoardValues();
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            MenuTexture = Content.Load<Texture2D>("Main Menu");
+            GameBackground = Content.Load<Texture2D>("Main Screen");
+            iCell = Content.Load<Texture2D>("iCell");
+            iShape = Content.Load<Texture2D>("i");
+            jCell = Content.Load<Texture2D>("jCell");
+            jShape = Content.Load<Texture2D>("j");
+            lCell = Content.Load<Texture2D>("lCell");
+            lShape = Content.Load<Texture2D>("l");
+            oCell = Content.Load<Texture2D>("oCell");
+            oShape = Content.Load<Texture2D>("o");
+            sCell = Content.Load<Texture2D>("sCell");
+            sShape = Content.Load<Texture2D>("s");
+            tCell = Content.Load<Texture2D>("tCell");
+            tShape = Content.Load<Texture2D>("t");
+            zCell = Content.Load<Texture2D>("zCell");
+            zShape = Content.Load<Texture2D>("z");
+
+            cellTextures.Add(iCell);
+            cellTextures.Add(jCell);
+            cellTextures.Add(lCell);
+            cellTextures.Add(oCell);
+            cellTextures.Add(sCell);
+            cellTextures.Add(tCell);
+            cellTextures.Add(zCell);
+
+            shapeTextures.Add(iShape);
+            shapeTextures.Add(jShape);
+            shapeTextures.Add(lShape);
+            shapeTextures.Add(oShape);
+            shapeTextures.Add(sShape);
+            shapeTextures.Add(tShape);
+            shapeTextures.Add(zShape);
+
+            myMenu = new Menu(Content, screenWidth, screenHeight, drop, rotRight, rotLeft, moveRight, moveLeft, hardDrop);
+        }
+
 
 
         protected override void Update(GameTime gameTime)
@@ -320,6 +462,8 @@ namespace Tetris
                         case ACTION.PLAY:
                             curScreen = SCREEN.PLAY;
                             currentShape = new Shape(getRandomShape());
+                            nextType = getRandomShape();
+                            lastShapeFallTime = gameTime.TotalGameTime;
                             break;
                         case ACTION.HIGH_SCORES:
                             curScreen = SCREEN.HIGH_SCORES;
@@ -376,6 +520,132 @@ namespace Tetris
                     case SCREEN.MAIN:
                         break;
                     case SCREEN.PLAY:
+                        if(gameTime.TotalGameTime.TotalMilliseconds - lastShapeFallTime.TotalMilliseconds > shapeFallRate)
+                        {
+                            if (currentShape.canFall(gameBoard.board))
+                            {
+                                currentShape.fall();
+                                lastShapeFallTime = gameTime.TotalGameTime;
+                            }
+                            else
+                            {
+                                //save shape to board
+                                gameBoard.saveShape(currentShape);
+                                if (!gameBoard.isLoss())
+                                {
+                                    //remove lines and calculate scores
+                                    int numLinesRemoved = gameBoard.detectLine();
+                                    //TODO: Lower shapeFallRate
+                                    //TODO: Add to score
+                                    //TODO: apply gravity
+                                    //update currentShape and NextShape
+                                    currentShape = new Shape(nextType);
+                                    nextType = getRandomShape();
+                                }
+                                else
+                                {
+                                    curScreen = SCREEN.LOSE;
+                                    myMenu.Update(curScreen);
+                                    //TODO:Save Score to highscores
+                                    //TODO:reset values
+                                }
+                            }
+                        }
+                        //Get User Input and respond accordingly
+
+                        //DROP
+                        if (Keyboard.GetState().IsKeyDown(drop))
+                        {
+                            if (!dropPressed)
+                            {
+                                fallRateRestore = shapeFallRate;
+                                shapeFallRate = 100;
+                                dropPressed = true;
+                            }
+                        }
+                        else if(Keyboard.GetState().IsKeyUp(drop))
+                        {
+                            shapeFallRate = fallRateRestore;
+                            dropPressed = false;
+                        }
+
+                        //ROTATE LEFT
+                        if (Keyboard.GetState().IsKeyDown(rotLeft))
+                        {
+                            if (!rotLeftPressed)
+                            {
+                                currentShape.rotLeft(gameBoard.board);
+                                rotLeftPressed = true;
+                            }
+                        }
+                        else if (Keyboard.GetState().IsKeyUp(rotLeft))
+                        {
+                            rotLeftPressed = false;
+                        }
+
+                        //ROTATE RIGHT
+                        if (Keyboard.GetState().IsKeyDown(rotRight))
+                        {
+                            if (!rotRightPressed)
+                            {
+                                currentShape.rotRight(gameBoard.board);
+                                rotRightPressed = true;
+                            }
+                        }
+                        else if (Keyboard.GetState().IsKeyUp(rotRight))
+                        {
+                            rotRightPressed = false;
+                        }
+
+                        //HARD DROP
+                        if (Keyboard.GetState().IsKeyDown(hardDrop))
+                        {
+                            if (!hardDropPressed)
+                            {
+                                fallRateRestore = shapeFallRate;
+                                shapeFallRate = 10;
+                                dropPressed = true;
+                            }
+                        }
+                        else if (Keyboard.GetState().IsKeyUp(hardDrop))
+                        {
+                            shapeFallRate = fallRateRestore;
+                            hardDropPressed = false;
+                        }
+
+                        //MOVE LEFT
+                        if (Keyboard.GetState().IsKeyDown(moveLeft))
+                        {
+                            if (!moveLeftPressed)
+                            {
+                                if (currentShape.canMoveLeft(gameBoard.board))
+                                {
+                                    currentShape.moveLeft();
+                                }
+                                moveLeftPressed = true;
+                            }
+                        }
+                        else if (Keyboard.GetState().IsKeyUp(moveLeft))
+                        {
+                            moveLeftPressed = false;
+                        }
+
+                        //MOVE RIGHT
+                        if (Keyboard.GetState().IsKeyDown(moveRight))
+                        {
+                            if (!moveRightPressed)
+                            {
+                                if (currentShape.canMoveRight(gameBoard.board))
+                                {
+                                    currentShape.moveRight();
+                                }
+                                moveRightPressed = true;
+                            }
+                        }
+                        else if (Keyboard.GetState().IsKeyUp(moveRight))
+                        {
+                            moveRightPressed = false;
+                        }
                         break;
                 }
 
@@ -409,8 +679,18 @@ namespace Tetris
                         _spriteBatch.Draw(cellTextures[(int)currentShape.type], new Rectangle((int)gameBoard.board[currentShape.cells[i, 0], currentShape.cells[i,1]].location.X, (int)gameBoard.board[currentShape.cells[i, 0], currentShape.cells[i, 1]].location.Y, (int)cell.X, (int)cell.Y), Color.White);
                     }
                     //Render existing Board
+                    for(int i = 0; i < 10; i++)
+                    {
+                        for(int j = 0; j < 25; j++)
+                        {
+                            if(gameBoard.board[i,j].isFilled)
+                                _spriteBatch.Draw(cellTextures[(int)gameBoard.board[i,j].currentCell], new Rectangle((int)gameBoard.board[i,j].location.X, (int)gameBoard.board[i,j].location.Y, (int)cell.X, (int)cell.Y), Color.White);
+                        }
+                    }
                     //Render Particle effects on line clear and set
-                    _spriteBatch.Draw(nextShape, new Rectangle(1100, 243, 180, 180), Color.White);
+
+                    //Render next shape in predictive box
+                    _spriteBatch.Draw(shapeTextures[(int)nextType], new Rectangle(1100, 243, 180, 180), Color.White);
                     break;
             }
 

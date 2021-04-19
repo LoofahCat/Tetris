@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/i.png</SourceFile>
-  <SourceTime>2021-04-18T14:59:14.4409394-06:00</SourceTime>
+  <SourceTime>2021-04-18T22:34:16.3035235-06:00</SourceTime>
   <DestFile>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/Content/i.xnb</DestFile>
-  <DestTime>2021-04-18T15:38:24.5096729-06:00</DestTime>
+  <DestTime>2021-04-18T22:39:16.9596968-06:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54-06:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

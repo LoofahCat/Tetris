@@ -53,21 +53,48 @@ namespace Tetris
             return completeLine;
         }
 
-        public void detectLine()
+        public int detectLine()//find lines and return total score after clearing.
         {
+            int numLinesRemoved = 0;
             for(int i = 4; i < 25; i++)
             {
                 if (checkLine(i))
                 {
                     removeLine(i);
+                    numLinesRemoved++;
                 }
             }
-
+            return numLinesRemoved;
         }
 
         private void removeLine(int lineNum)
         {
 
+        }
+
+        public void saveShape(Shape shape)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                board[shape.cells[i, 0], shape.cells[i, 1]].isFilled = true;
+                board[shape.cells[i, 0], shape.cells[i, 1]].currentCell = shape.type;
+            }
+        }
+
+        public bool isLoss()
+        {
+            bool lost = false;
+            for(int i = 0; i < 10; i++)
+            {
+                for(int j = 0; j < 4; j++)
+                {
+                    if (board[i, j].isFilled)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return lost;
         }
     }
 

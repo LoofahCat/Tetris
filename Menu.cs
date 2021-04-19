@@ -243,7 +243,7 @@ namespace Tetris
                     }
                     if (curScreen == Game1.SCREEN.LOSE)
                     {
-                        spriteBatch.DrawString(menuFont, "Your Score: 0... Because you died...", new Vector2(defaultPositionX[1] - (int)(screenHeight * 0.1), defaultPositionsY[4]), Color.White);
+                        spriteBatch.DrawString(menuFont, "Your Score: ", new Vector2(defaultPositionX[1] - (int)(screenHeight * 0.1), defaultPositionsY[4]), Color.White);
                     }
                     break;
             }
