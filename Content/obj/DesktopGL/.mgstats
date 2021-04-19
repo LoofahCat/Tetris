@@ -1,11 +1,22 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/font.spritefont","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/font.xnb","FontDescriptionProcessor","SpriteFontContent",2005,37922,0.2644099
 "C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/gameFont.spritefont","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/gameFont.xnb","FontDescriptionProcessor","SpriteFontContent",2009,21538,0.8888741
-"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/i.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/i.xnb","TextureProcessor","Texture2DContent",2467,159665,1.2099955
-"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/j.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/j.xnb","TextureProcessor","Texture2DContent",1545,237685,0.0361308
-"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/l.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/l.xnb","TextureProcessor","Texture2DContent",1549,236497,0.0304236
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/i.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/i.xnb","TextureProcessor","Texture2DContent",2994,1000085,0.2587301
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/iCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/iCell.xnb","TextureProcessor","Texture2DContent",602,40889,0.2661201
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/icon.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/icon.xnb","TextureProcessor","Texture2DContent",2358,640085,0.0136382
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/j.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/j.xnb","TextureProcessor","Texture2DContent",2905,998085,0.0191145
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/jCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/jCell.xnb","TextureProcessor","Texture2DContent",597,40889,0.0027334
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/l.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/l.xnb","TextureProcessor","Texture2DContent",2924,1004089,0.0297297
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/lCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/lCell.xnb","TextureProcessor","Texture2DContent",601,40889,0.0027856
 "C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Menu.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/Main Menu.xnb","TextureProcessor","Texture2DContent",9432,3240085,0.8038764
-"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Screen.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/Main Screen.xnb","TextureProcessor","Texture2DContent",18122,3240085,0.2693601
-"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/o.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/o.xnb","TextureProcessor","Texture2DContent",2286,158489,0.0210853
-"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/s.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/s.xnb","TextureProcessor","Texture2DContent",1310,237293,0.0277248
-"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/t.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/t.xnb","TextureProcessor","Texture2DContent",1256,236497,0.0270245
-"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/z.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/z.xnb","TextureProcessor","Texture2DContent",1318,237293,0.0263616
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Screen.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/Main Screen.xnb","TextureProcessor","Texture2DContent",11866,3240085,0.0671351
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/menuFont.spritefont","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/menuFont.xnb","FontDescriptionProcessor","SpriteFontContent",2006,267298,0.0283679
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/o.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/o.xnb","TextureProcessor","Texture2DContent",2807,998085,0.0222613
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/oCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/oCell.xnb","TextureProcessor","Texture2DContent",592,40889,0.0026023
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/s.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/s.xnb","TextureProcessor","Texture2DContent",2860,1004089,0.0432932
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/sCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/sCell.xnb","TextureProcessor","Texture2DContent",601,40889,0.0033839
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/t.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/t.xnb","TextureProcessor","Texture2DContent",2806,1004089,0.0323883
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/tCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/tCell.xnb","TextureProcessor","Texture2DContent",596,40889,0.0030183
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/titleFont.spritefont","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/titleFont.xnb","FontDescriptionProcessor","SpriteFontContent",2006,267298,0.1930465
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/z.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/z.xnb","TextureProcessor","Texture2DContent",2845,1004089,0.0158083
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/zCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/zCell.xnb","TextureProcessor","Texture2DContent",601,40889,0.0022979

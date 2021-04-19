@@ -31,3 +31,14 @@ C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.pdb
 C:\Users\abe.gunther\source\repos\Abe\Tetris\obj\Debug\netcoreapp3.1\Tetris.genruntimeconfig.cache
 C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\Main Menu.xnb
 C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\Main Screen.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\iCell.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\jCell.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\lCell.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\oCell.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\sCell.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\tCell.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\zCell.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\icon.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\font.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\menuFont.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\titleFont.xnb

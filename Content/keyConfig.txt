@@ -1,0 +1,6 @@
+S
+Down
+Left
+Right
+A
+D

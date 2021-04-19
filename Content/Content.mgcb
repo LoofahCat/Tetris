@@ -13,6 +13,20 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:font.spritefont
+
+#begin gameFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:gameFont.spritefont
+
 #begin gameFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -32,6 +46,30 @@
 /processorParam:TextureFormat=Color
 /build:i.png
 
+#begin iCell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:iCell.png
+
+#begin icon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:icon.png
+
 #begin j.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -44,6 +82,18 @@
 /processorParam:TextureFormat=Color
 /build:j.png
 
+#begin jCell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:jCell.png
+
 #begin l.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -55,6 +105,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:l.png
+
+#begin lCell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:lCell.png
 
 #begin Main Menu.png
 /importer:TextureImporter
@@ -80,6 +142,13 @@
 /processorParam:TextureFormat=Color
 /build:Main Screen.png
 
+#begin menuFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:menuFont.spritefont
+
 #begin o.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -91,6 +160,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:o.png
+
+#begin oCell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:oCell.png
 
 #begin s.png
 /importer:TextureImporter
@@ -104,6 +185,18 @@
 /processorParam:TextureFormat=Color
 /build:s.png
 
+#begin sCell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:sCell.png
+
 #begin t.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -116,6 +209,25 @@
 /processorParam:TextureFormat=Color
 /build:t.png
 
+#begin tCell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tCell.png
+
+#begin titleFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:titleFont.spritefont
+
 #begin z.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -127,4 +239,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:z.png
+
+#begin zCell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zCell.png
 
