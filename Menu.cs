@@ -77,8 +77,8 @@ namespace Tetris
                 new Choice(Game1.ACTION.CHANGE_HARDDROP, new Vector2(defaultPositionX[1], defaultPositionsY[2]),  "HARD DROP        [ " + hardDrop.ToString() + " ]"),
                 new Choice(Game1.ACTION.CHANGE_ROTLEFT, new Vector2(defaultPositionX[1], defaultPositionsY[3]),  "ROTATE LEFT      [ " + rotLeft.ToString() + " ]"),
                 new Choice(Game1.ACTION.CHANGE_ROTRIGHT, new Vector2(defaultPositionX[1], defaultPositionsY[4]), "ROTATE RIGHT  [ " + rotRight.ToString() + " ]"),
-                new Choice(Game1.ACTION.CHANGE_MOVELEFT, new Vector2(defaultPositionX[1], defaultPositionsY[5]),  "MOVE LEFT      [ " + rotLeft.ToString() + " ]"),
-                new Choice(Game1.ACTION.CHANGE_MOVERIGHT, new Vector2(defaultPositionX[1], defaultPositionsY[6]), "MOVE RIGHT  [ " + rotRight.ToString() + " ]"),
+                new Choice(Game1.ACTION.CHANGE_MOVELEFT, new Vector2(defaultPositionX[1], defaultPositionsY[5]),  "MOVE LEFT      [ " + moveLeft.ToString() + " ]"),
+                new Choice(Game1.ACTION.CHANGE_MOVERIGHT, new Vector2(defaultPositionX[1], defaultPositionsY[6]), "MOVE RIGHT  [ " + moveRight.ToString() + " ]"),
                 new Choice(Game1.ACTION.BACK, new Vector2(defaultPositionX[1], defaultPositionsY[7]), "BACK", Game1.SCREEN.MAIN)
             };
 
@@ -108,27 +108,27 @@ namespace Tetris
         public void updateRotLeft(Keys key)
         {
             rotLeft = key;
-            controlChoices[2] = new Choice(Game1.ACTION.CHANGE_ROTLEFT, new Vector2(defaultPositionX[1], defaultPositionsY[2]), "ROTATE LEFT      [ " + rotLeft.ToString() + " ]");
+            controlChoices[2] = new Choice(Game1.ACTION.CHANGE_ROTLEFT, new Vector2(defaultPositionX[1], defaultPositionsY[3]), "ROTATE LEFT      [ " + rotLeft.ToString() + " ]");
         }
         public void updateRotRight(Keys key)
         {
             rotRight = key;
-            controlChoices[3] = new Choice(Game1.ACTION.CHANGE_ROTRIGHT, new Vector2(defaultPositionX[1], defaultPositionsY[3]), "ROTATE RIGHT  [ " + rotRight.ToString() + " ]");
+            controlChoices[3] = new Choice(Game1.ACTION.CHANGE_ROTRIGHT, new Vector2(defaultPositionX[1], defaultPositionsY[4]), "ROTATE RIGHT  [ " + rotRight.ToString() + " ]");
         }
         public void updateHardDrop(Keys key)
         {
-            drop = key;
-            controlChoices[1] = new Choice(Game1.ACTION.CHANGE_HARDDROP, new Vector2(defaultPositionX[1], defaultPositionsY[1]), "HARD DROP               [ " + hardDrop.ToString() + " ]");
+            hardDrop = key;
+            controlChoices[1] = new Choice(Game1.ACTION.CHANGE_HARDDROP, new Vector2(defaultPositionX[1], defaultPositionsY[2]), "HARD DROP               [ " + hardDrop.ToString() + " ]");
         }
         public void updateMoveLeft(Keys key)
         {
             rotLeft = key;
-            controlChoices[4] = new Choice(Game1.ACTION.CHANGE_MOVELEFT, new Vector2(defaultPositionX[1], defaultPositionsY[2]), "MOVE LEFT      [ " + moveLeft.ToString() + " ]");
+            controlChoices[4] = new Choice(Game1.ACTION.CHANGE_MOVELEFT, new Vector2(defaultPositionX[1], defaultPositionsY[5]), "MOVE LEFT      [ " + moveLeft.ToString() + " ]");
         }
         public void updateMoveRight(Keys key)
         {
             rotRight = key;
-            controlChoices[5] = new Choice(Game1.ACTION.CHANGE_MOVERIGHT, new Vector2(defaultPositionX[1], defaultPositionsY[3]), "MOVE RIGHT  [ " + moveRight.ToString() + " ]");
+            controlChoices[5] = new Choice(Game1.ACTION.CHANGE_MOVERIGHT, new Vector2(defaultPositionX[1], defaultPositionsY[6]), "MOVE RIGHT  [ " + moveRight.ToString() + " ]");
         }
 
         public Game1.ACTION Update(Game1.SCREEN scr)
@@ -243,7 +243,7 @@ namespace Tetris
                     }
                     if (curScreen == Game1.SCREEN.LOSE)
                     {
-                        spriteBatch.DrawString(menuFont, "Your Score: ", new Vector2(defaultPositionX[1] - (int)(screenHeight * 0.1), defaultPositionsY[4]), Color.White);
+                        spriteBatch.DrawString(menuFont, "Your Score: " + Game1.currentScore, new Vector2(defaultPositionX[1] - (int)(screenHeight * 0.1), defaultPositionsY[4]), Color.White);
                     }
                     break;
             }

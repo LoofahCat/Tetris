@@ -1,6 +1,6 @@
 S
 Down
 Left
-D
+Right
 A
 D

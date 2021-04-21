@@ -42,7 +42,7 @@ namespace Tetris
         private bool checkLine(int lineNum)
         {
             bool completeLine = true;
-            for (int i = 0; i < lineNum; i++)
+            for (int i = 0; i < 10; i++)
             {
                 if (board[i, lineNum].isFilled == false)
                 {
@@ -53,23 +53,38 @@ namespace Tetris
             return completeLine;
         }
 
-        public int detectLine()//find lines and return total score after clearing.
+        private bool emptyLine(int lineNum)
         {
-            int numLinesRemoved = 0;
+            bool empty = true;
+            for (int i = 0; i < 10; i++)
+            {
+                if (board[i, lineNum].isFilled == true)
+                {
+                    return false;
+                }
+            }
+            return empty;
+        }
+
+        public List<int> detectLine()//find lines and return total score after clearing.
+        {
+            List<int> removedLines = new List<int>();
             for(int i = 4; i < 25; i++)
             {
                 if (checkLine(i))
                 {
-                    removeLine(i);
-                    numLinesRemoved++;
+                    removedLines.Add(i);
                 }
             }
-            return numLinesRemoved;
+            return removedLines;
         }
 
-        private void removeLine(int lineNum)
+        public void removeLine(int lineNum)
         {
-
+            for(int i = 0; i < 10; i++)
+            {
+                board[i, lineNum].isFilled = false;
+            }
         }
 
         public void saveShape(Shape shape)
@@ -95,6 +110,60 @@ namespace Tetris
                 }
             }
             return lost;
+        }
+
+        public bool needsGravity()
+        {
+            int y = getHighestTile();
+            bool grav = false;
+            for(int i = y; i < 25; i++)
+            {
+                if (emptyLine(i))
+                {
+                    return true;
+                }
+            }
+            return grav;
+        }
+
+        public void applyGravity()
+        {
+            int y = getHighestTile();
+            bool breaker = false;
+            for(int i = 24; i > y; i--)
+            {
+                if (emptyLine(i) && !breaker)
+                {
+                    for(int j = i; j >= y; j--)
+                    {
+                        moveLineDown(j);
+                    }
+                    breaker = true;
+                }
+            }
+        }
+
+        public void moveLineDown(int y)
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                board[i, y].isFilled = board[i, y - 1].isFilled;
+                board[i, y].currentCell = board[i, y - 1].currentCell;
+            }
+        }
+
+        public int getHighestTile()
+        {
+            int y = 25;
+            for(int i = 0; i < 10; i++)
+            {
+                for(int j = 0; j < 25; j++)
+                {
+                    if (board[i, j].isFilled && j < y)
+                        y = j;
+                }
+            }
+            return y;
         }
     }
 

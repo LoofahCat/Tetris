@@ -22,11 +22,13 @@ namespace Tetris
     public class Shape {
         public int[,] cells;
         public Game1.SHAPE_TYPE type;
+        public enum DIRECTION { UP, RIGHT, DOWN, LEFT };
+        DIRECTION direction;
 
         public Shape(Game1.SHAPE_TYPE shape)
         {
             type = shape;
-            
+            direction = DIRECTION.UP;
             switch (type) {
                 case Game1.SHAPE_TYPE.I:
                     cells = new int[4, 2] { { 5, 0 }, { 5, 1 }, { 5, 2 }, { 5, 3 } };
@@ -44,7 +46,7 @@ namespace Tetris
                     cells = new int[4, 2] { { 5, 0 }, { 6, 0 }, { 5, 1 }, { 4, 1 } };
                     break;
                 case Game1.SHAPE_TYPE.T:
-                    cells = new int[4, 2] { { 5, 0 }, { 6, 0 }, { 4, 0 }, { 5, 1 } };
+                    cells = new int[4, 2] { { 5, 1 }, { 6, 1 }, { 4, 1 }, { 5, 2 } };
                     break;
                 case Game1.SHAPE_TYPE.Z:
                     cells = new int[4, 2] { { 5, 0 }, { 4, 0 }, { 5, 1 }, { 6, 1 } };
@@ -133,19 +135,253 @@ namespace Tetris
         {
             switch (type) {
                 case Game1.SHAPE_TYPE.I:
+                    if(direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 2;
+                        cells[1, 1] += 1;
+                        cells[2, 0] -= 1;
+                        cells[3, 0] -= 2;
+                        cells[3, 1] -= 1;
+                    }
+                    else if(direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] -= 2;
+                        cells[0, 1] += 1;
+                        cells[1, 0] -= 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] += 1;
+                        cells[3, 1] -= 2;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 2;
+                        cells[1, 1] -= 1;
+                        cells[2, 0] += 1;
+                        cells[3, 0] += 2;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] += 2;
+                        cells[0, 1] -= 1;
+                        cells[1, 0] += 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] += 2;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.J:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 1] -= 2;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] += 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] += 2;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] += 1;
+                        cells[3, 1] += 2;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] += 1;
+                        cells[0, 1] -= 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] -= 2;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.L:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] -= 2;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] += 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 1] -= 2;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] += 2;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] += 1;
+                        cells[0, 1] -= 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] += 1;
+                        cells[3, 1] += 2;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.O://Doesn't need to rotate
                     break;
                 case Game1.SHAPE_TYPE.S:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 1;
+                        cells[1, 1] += 2;
+                        cells[3, 0] += 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] += 1;
+                        cells[1, 0] -= 2;
+                        cells[3, 0] += 1;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 1;
+                        cells[1, 1] -= 2;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] += 1;
+                        cells[0, 1] -= 1;
+                        cells[1, 0] += 2;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] -= 1;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.T:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[1, 0] -= 1;
+                        cells[1, 1] += 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[1, 0] -= 1;
+                        cells[1, 1] -= 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] += 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[1, 0] += 1;
+                        cells[1, 1] -= 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] += 1;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[1, 0] += 1;
+                        cells[1, 1] += 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] += 1;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.Z:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 1;
+                        cells[1, 0] += 2;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] += 1;
+                        cells[1, 1] += 2;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 1;
+                        cells[1, 0] -= 2;
+                        cells[3, 0] += 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] += 1;
+                        cells[0, 1] -= 1;
+                        cells[1, 1] -= 2;
+                        cells[3, 0] += 1;
+                        cells[3, 1] += 1;
+                    }
                     break;
+            }
+
+            kick();
+
+            for (int i = 0; i < 4; i++) // Do not allow rotation into filled cells
+            {
+                if(board[cells[i,0], cells[i, 1]].isFilled || cells[i, 1] > 24)
+                {
+                    rotLeft(board);
+                }
             }
         }
         public void rotLeft(Tile[,] board)
@@ -153,19 +389,282 @@ namespace Tetris
             switch (type)
             {
                 case Game1.SHAPE_TYPE.I:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 2;
+                        cells[0, 1] += 1;
+                        cells[1, 0] -= 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] += 1;
+                        cells[3, 1] -= 2;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 2;
+                        cells[1, 1] -= 1;
+                        cells[2, 0] += 1;
+                        cells[3, 0] += 2;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 2;
+                        cells[0, 1] -= 1;
+                        cells[1, 0] += 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] += 2;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 2;
+                        cells[1, 1] += 1;
+                        cells[2, 0] -= 1;
+                        cells[3, 0] -= 2;
+                        cells[3, 1] -= 1;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.J:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] += 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] += 2;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] += 1;
+                        cells[3, 1] += 2;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] -= 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] -= 2;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 1] -= 2;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.L:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] += 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 1] -= 2;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] += 2;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] -= 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] += 1;
+                        cells[3, 1] += 2;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] -= 2;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.O://Doesn't need to rotate
                     break;
                 case Game1.SHAPE_TYPE.S:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] += 1;
+                        cells[1, 0] -= 2;
+                        cells[3, 0] += 1;
+                        cells[3, 1] += 1;
+
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 1;
+                        cells[1, 1] -= 2;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] -= 1;
+                        cells[1, 0] += 2;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 1;
+                        cells[1, 1] += 2;
+                        cells[3, 0] += 1;
+                        cells[3, 1] -= 1;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.T:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[1, 0] -= 1;
+                        cells[1, 1] -= 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] += 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[1, 0] += 1;
+                        cells[1, 1] -= 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] += 1;
+                        cells[3, 0] += 1;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[1, 0] += 1;
+                        cells[1, 1] += 1;
+                        cells[2, 0] -= 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[1, 0] -= 1;
+                        cells[1, 1] += 1;
+                        cells[2, 0] += 1;
+                        cells[2, 1] -= 1;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] -= 1;
+                    }
                     break;
                 case Game1.SHAPE_TYPE.Z:
+                    if (direction == DIRECTION.UP)
+                    {
+                        direction = DIRECTION.LEFT;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] += 1;
+                        cells[1, 1] += 2;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.RIGHT)
+                    {
+                        direction = DIRECTION.UP;
+                        cells[0, 0] -= 1;
+                        cells[0, 1] -= 1;
+                        cells[1, 0] -= 2;
+                        cells[3, 0] += 1;
+                        cells[3, 1] -= 1;
+                    }
+                    else if (direction == DIRECTION.DOWN)
+                    {
+                        direction = DIRECTION.RIGHT;
+                        cells[0, 0] += 1;
+                        cells[0, 1] -= 1;
+                        cells[1, 1] -= 2;
+                        cells[3, 0] += 1;
+                        cells[3, 1] += 1;
+                    }
+                    else if (direction == DIRECTION.LEFT)
+                    {
+                        direction = DIRECTION.DOWN;
+                        cells[0, 0] += 1;
+                        cells[0, 1] += 1;
+                        cells[1, 0] += 2;
+                        cells[3, 0] -= 1;
+                        cells[3, 1] += 1;
+                    }
                     break;
+            }
+
+            kick();
+
+            for (int i = 0; i < 4; i++) // Do not allow rotation into filled cells
+            {
+                if (board[cells[i, 0], cells[i, 1]].isFilled || cells[i, 1] > 24)
+                {
+                    rotRight(board);
+                }
+            }
+        }
+
+        private void kick()
+        {
+            int leftOverlap = 0;
+            int rightOverlap = 0;
+            for(int i = 0; i < 4; i++)
+            {
+                if (cells[i, 0] > 9)
+                    rightOverlap++;
+                else if (cells[i, 0] < 0)
+                    leftOverlap++;
+            }
+
+            if(leftOverlap > 0)
+            {
+                for(int i = 0; i < leftOverlap; i++)
+                {
+                    moveRight();
+                }
+            }
+            else if (rightOverlap > 0)
+            {
+                for(int i = 0; i < rightOverlap; i++)
+                {
+                    moveLeft();
+                }
             }
         }
         #endregion
@@ -237,8 +736,12 @@ namespace Tetris
         Color zColor;
         Vector2 cell;
         bool changingKey;
+        bool gravityAfterLineClear;
         double shapeFallRate;
         double fallRateRestore;
+        int totalShapesUsed;
+        int totalLinesCleared;
+        int curLevel;
         TimeSpan lastShapeFallTime;
         #endregion
 
@@ -271,6 +774,7 @@ namespace Tetris
             cellTextures = new List<Texture2D>();
             shapeTextures = new List<Texture2D>();
             changingKey = false;
+            gravityAfterLineClear = false;
             dropPressed = false;
             hardDropPressed = false;
             moveLeftPressed = false;
@@ -279,6 +783,9 @@ namespace Tetris
             rotRightPressed = false;
             shapeFallRate = 1000;
             fallRateRestore = 1000;
+            totalShapesUsed = 0;
+            totalLinesCleared = 0;
+            curLevel = 0;
         }
         #endregion
 
@@ -386,6 +893,8 @@ namespace Tetris
             zCell = Content.Load<Texture2D>("zCell");
             zShape = Content.Load<Texture2D>("z");
 
+            font = Content.Load<SpriteFont>("font");
+
             cellTextures.Add(iCell);
             cellTextures.Add(jCell);
             cellTextures.Add(lCell);
@@ -464,6 +973,13 @@ namespace Tetris
                             currentShape = new Shape(getRandomShape());
                             nextType = getRandomShape();
                             lastShapeFallTime = gameTime.TotalGameTime;
+                            gravityAfterLineClear = false;
+                            totalShapesUsed = 0;
+                            totalLinesCleared = 0;
+                            gameBoard = new GameBoard(screenWidth, screenHeight, cell);
+                            gameBoard.initializeBoardValues();
+                            curLevel = 0;
+                            currentScore = 0;
                             break;
                         case ACTION.HIGH_SCORES:
                             curScreen = SCREEN.HIGH_SCORES;
@@ -520,35 +1036,92 @@ namespace Tetris
                     case SCREEN.MAIN:
                         break;
                     case SCREEN.PLAY:
-                        if(gameTime.TotalGameTime.TotalMilliseconds - lastShapeFallTime.TotalMilliseconds > shapeFallRate)
+                        if (!gravityAfterLineClear)
                         {
-                            if (currentShape.canFall(gameBoard.board))
+                            if (gameTime.TotalGameTime.TotalMilliseconds - lastShapeFallTime.TotalMilliseconds > shapeFallRate - (curLevel*100))
                             {
-                                currentShape.fall();
-                                lastShapeFallTime = gameTime.TotalGameTime;
-                            }
-                            else
-                            {
-                                //save shape to board
-                                gameBoard.saveShape(currentShape);
-                                if (!gameBoard.isLoss())
+                                if (currentShape.canFall(gameBoard.board))
                                 {
-                                    //remove lines and calculate scores
-                                    int numLinesRemoved = gameBoard.detectLine();
-                                    //TODO: Lower shapeFallRate
-                                    //TODO: Add to score
-                                    //TODO: apply gravity
-                                    //update currentShape and NextShape
-                                    currentShape = new Shape(nextType);
-                                    nextType = getRandomShape();
+                                    currentShape.fall();
+                                    lastShapeFallTime = gameTime.TotalGameTime;
                                 }
                                 else
                                 {
-                                    curScreen = SCREEN.LOSE;
-                                    myMenu.Update(curScreen);
-                                    //TODO:Save Score to highscores
-                                    //TODO:reset values
+                                    //save shape to board
+                                    gameBoard.saveShape(currentShape);
+                                    if (!gameBoard.isLoss())
+                                    {
+                                        //remove lines and calculate scores
+                                        List<int> linesRemoved = gameBoard.detectLine();
+                                        if (linesRemoved.Count > 0)
+                                        {
+                                            for (int i = 0; i < linesRemoved.Count; i++)
+                                            {
+                                                //figure out particle effects
+                                                gameBoard.removeLine(linesRemoved[i]);
+                                            }
+                                            gravityAfterLineClear = true;
+
+                                            switch (linesRemoved.Count)
+                                            {
+                                                case 1:
+                                                    currentScore += 40 * (curLevel + 1);
+                                                    break;
+                                                case 2:
+                                                    currentScore += 100 * (curLevel + 1);
+                                                    break;
+                                                case 3:
+                                                    currentScore += 300 * (curLevel + 1);
+                                                    break;
+                                                case 4:
+                                                    currentScore += 1200 * (curLevel + 1);
+                                                        break;
+                                                default:
+                                                    break;
+                                            }
+
+                                            totalLinesCleared += linesRemoved.Count;
+                                        }
+
+                                        
+                                        //update currentShape and NextShape
+                                        currentShape = new Shape(nextType);
+                                        nextType = getRandomShape();
+
+                                        //Increment Level for scoring and speed
+                                        totalShapesUsed++;
+                                        curLevel = (int)(totalShapesUsed / 10f) > 9 ? 9 : (int)(totalShapesUsed / 10f);
+                                    }
+                                    else
+                                    {
+                                        curScreen = SCREEN.LOSE;
+                                        myMenu.Update(curScreen);
+                                        bool breaker = false;
+                                        for(int i = 0; i < HighScores.Length; i++)
+                                        {
+                                            if(currentScore > HighScores[i] && !breaker)
+                                            {
+                                                HighScores[i] = currentScore;
+                                                breaker = true;
+                                            }
+                                        }
+                                    }
                                 }
+                            }
+                        }
+                        else //Allow pieces to fall before moving on to next shape
+                        {
+                            if (gameBoard.needsGravity())
+                            {
+                                if (gameTime.TotalGameTime.TotalMilliseconds - lastShapeFallTime.TotalMilliseconds > 400)
+                                {
+                                    gameBoard.applyGravity();
+                                    lastShapeFallTime = gameTime.TotalGameTime;
+                                }
+                            }
+                            else
+                            {
+                                gravityAfterLineClear = false;
                             }
                         }
                         //Get User Input and respond accordingly
@@ -673,6 +1246,9 @@ namespace Tetris
                     break;
                 case SCREEN.PLAY:
                     _spriteBatch.Draw(GameBackground, new Rectangle((int)(screenWidth / 4.4f), 0, screenHeight, screenHeight), Color.White);
+                    _spriteBatch.DrawString(font, "Level: " + curLevel.ToString(), new Vector2(screenWidth*0.052f, screenHeight*0.0926f), Color.White);
+                    _spriteBatch.DrawString(font, "SCORE: " + currentScore.ToString(), new Vector2(screenWidth * 0.052f, screenHeight*0.12f), Color.White);
+                    _spriteBatch.DrawString(font, "LINES CLEARED: " + totalLinesCleared.ToString(), new Vector2(screenWidth * 0.052f, screenHeight * 0.15f), Color.White);
                     //Render falling shape
                     for(int i = 0; i < 4; i++)
                     {
