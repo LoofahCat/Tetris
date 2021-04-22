@@ -18,13 +18,24 @@ namespace Tetris
         public int screenHeight { get; set; }
         public Vector2 cell { get; set; }
 
-        public GameBoard(int w, int h, Vector2 c)
+        double a;//AggregateHeight
+        double b;//CompleteLines
+        double c;//Holes
+        double d;//Bumpiness
+
+        public GameBoard(int w, int h, Vector2 cellSize)
         {
             screenWidth = w;
             screenHeight = h;
-            cell = c;
+            cell = cellSize;
+
+            a = -0.510066;
+            b = 0.760666;
+            c = -0.35663;
+            d = -0.184483;
         }
 
+        #region "GamePlay Methods"
         public void initializeBoardValues()
         {
             board = new Tile[10, 25];
@@ -165,6 +176,93 @@ namespace Tetris
             }
             return y;
         }
+        #endregion
+
+
+        #region "AI Algorithm Methods"
+        public double getHeuristicScore()
+        {
+            double score = 0;
+            double aggregateHeight = getAggregateHeight();
+            double completeLines = getCompleteLines();
+            double holes = 0;
+            double bumpiness = 0;
+
+            score = a * aggregateHeight + b * completeLines + c * holes + d * bumpiness;
+            return score;
+        }
+
+        private double getAggregateHeight()//TODO: Test Method
+        {
+            double height = 0;
+            for(int i = 0; i < 10; i++)
+            {
+                double maxHeightInColumn = getHeightOfColumn(i);
+
+                height += maxHeightInColumn;
+            }
+            return height;
+        }
+
+        private double getHeightOfColumn(int i)
+        {
+            double maxHeightInColumn = 0;
+            for (int j = 0; j < 25; j++)
+            {
+                if (board[i, 24 - j].isFilled && j + 1 > maxHeightInColumn)
+                {
+                    maxHeightInColumn = j + 1;
+                }
+            }
+            return maxHeightInColumn;
+        }
+
+        private double getCompleteLines()//TODO: Test Method
+        {
+            double lines = 0;
+            for(int i = 0; i < 25; i++)
+            {
+                bool isCompleteLine = true;
+                for(int j = 0; j < 10; j++)
+                {
+                    if(!board[j, i].isFilled)
+                    {
+                        isCompleteLine = false;
+                    }
+                }
+                if (isCompleteLine)
+                    lines++;
+            }
+            return lines;
+        }
+
+        private double getHoles()//TODO: Test Method
+        {
+            double holes = 0;
+            for(int i = 0; i < 10; i++)
+            {
+                for(int j = 0; j < 25; j++)
+                {
+                    if(!board[i,j].isFilled && board[i, j - 1].isFilled)
+                    {
+                        holes++;
+                    }
+                }
+            }
+            return holes;
+        }
+
+        private double getBumpiness()
+        {
+            double bumpiness = 0;
+            for(int i = 0; i < 9; i++)
+            {
+                double bump = Math.Abs(getHeightOfColumn(i) - getHeightOfColumn(i + 1));
+                bumpiness += bump;
+            }
+            return bumpiness;
+        }
+        #endregion
     }
 
     public class Tile {

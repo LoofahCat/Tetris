@@ -42,3 +42,17 @@ C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\ico
 C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\font.xnb
 C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\menuFont.xnb
 C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\titleFont.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\blankCell.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\theme.ogg
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\theme.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\thud.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\crash.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\amazing.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\nice.ogg
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\nice.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\ohYeah.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\wow.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\beep.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\chime.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\lightning.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\thunder.xnb

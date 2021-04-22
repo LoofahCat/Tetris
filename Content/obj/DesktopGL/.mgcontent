@@ -4,6 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/amazing.wav</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/beep.wav</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/blankCell.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/chime.wav</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/crash.wav</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/font.spritefont</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/gameFont.spritefont</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/i.png</File>
@@ -13,20 +18,39 @@
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/jCell.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/l.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/lCell.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/lightning.wav</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Menu.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/Main Screen.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/menuFont.spritefont</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/nice.mp3</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/o.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/oCell.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/ohYeah.wav</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/s.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/sCell.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/t.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/tCell.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/theme.mp3</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/thud.wav</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/thunder.wav</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/titleFont.spritefont</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/wow.wav</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/z.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/zCell.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -10,9 +10,7 @@ using System.IO;
 
 /*
  * TODO:
- * 3. Make shape collide with any occupied cells. Stop all movement of cells in the shape. Record locations. Check for complete lines. Trigger score and gravity.
  * 8. Add song and sound effects
- * 9. Add Particle Effects on Line Clear and cell save.
  * 10. Add AI
  * 11. Trigger AI after 10 seconds of idle menu.
  */
@@ -54,7 +52,14 @@ namespace Tetris
             }
 
         }
-
+        /* NOTES:
+         * I need a method that, given a shape, will make one manipulation to this shape to bring this shape closer to the parameter shape
+         * I need a method that deletes a shape from the GameBoard (Exactly the same as the SaveShape method, but reversed). 
+         * Save the previous shape to the board memory, then remove it to compute a new heuristic score
+         * Try a shape in each location and rotation on the board. Get Max score and leave the shape there. 
+         * In small increments of time, allow AI to call method to bring shapes together.
+         * Modify other values accordingly for when AI is running.
+         */
         #region "Shape Movement Methods"
         public void fall()
         {
@@ -683,6 +688,7 @@ namespace Tetris
         private List<SoundEffect> soundEffects;
         private SpriteFont font;
         Song theme;
+        bool themePlaying;
         private Texture2D MenuTexture;
         private Texture2D GameBackground;
         private Texture2D iCell;
@@ -708,6 +714,8 @@ namespace Tetris
         private ACTION action;
 
         private GameBoard gameBoard;
+        private ParticleEmitter cellBreaker;
+        private ParticleEmitter shapeSetter;
 
         public static int[] HighScores { get; set; }
         public Keys[] KeyConfig { get; set; }
@@ -743,6 +751,7 @@ namespace Tetris
         int totalLinesCleared;
         int curLevel;
         TimeSpan lastShapeFallTime;
+        TimeSpan lastPlayTime;
         #endregion
 
         #region "Constructor"
@@ -771,8 +780,10 @@ namespace Tetris
             moveLeft = KeyConfig[4];
             moveRight = KeyConfig[5];
 
+            soundEffects = new List<SoundEffect>();
             cellTextures = new List<Texture2D>();
             shapeTextures = new List<Texture2D>();
+            themePlaying = false;
             changingKey = false;
             gravityAfterLineClear = false;
             dropPressed = false;
@@ -895,6 +906,14 @@ namespace Tetris
 
             font = Content.Load<SpriteFont>("font");
 
+            soundEffects.Add(Content.Load<SoundEffect>("crash"));
+            soundEffects.Add(Content.Load<SoundEffect>("beep"));
+            soundEffects.Add(Content.Load<SoundEffect>("chime"));
+            soundEffects.Add(Content.Load<SoundEffect>("thunder"));
+            soundEffects.Add(Content.Load<SoundEffect>("lightning"));
+            
+            theme = Content.Load<Song>("theme");
+
             cellTextures.Add(iCell);
             cellTextures.Add(jCell);
             cellTextures.Add(lCell);
@@ -912,6 +931,8 @@ namespace Tetris
             shapeTextures.Add(zShape);
 
             myMenu = new Menu(Content, screenWidth, screenHeight, drop, rotRight, rotLeft, moveRight, moveLeft, hardDrop);
+            cellBreaker = new ParticleEmitter(Content, 200, 200, (int)(cell.X / 3f), 250, new TimeSpan(0, 0, 0, 0, 3000), cell);
+            shapeSetter = new ParticleEmitter(Content, 200, 200, (int)(cell.X / 3f), 250, new TimeSpan(0, 0, 0, 0, 1000), cell);
         }
 
 
@@ -919,6 +940,8 @@ namespace Tetris
         protected override void Update(GameTime gameTime)
         {
             action = myMenu.Update(curScreen);
+            cellBreaker.Update(gameTime);
+            shapeSetter.Update(gameTime);
             if (changingKey)
             {
                 if (Keyboard.GetState().GetPressedKeyCount() == 1 && Keyboard.GetState().IsKeyUp(Keys.Enter))
@@ -933,7 +956,7 @@ namespace Tetris
                     {
                         hardDrop = Keyboard.GetState().GetPressedKeys()[0];
                         KeyConfig[1] = hardDrop;
-                        myMenu.updateDrop(this.hardDrop);
+                        myMenu.updateHardDrop(this.hardDrop);
                     }
                     else if (rotLeft == Keys.None)
                     {
@@ -951,13 +974,13 @@ namespace Tetris
                     {
                         moveLeft = Keyboard.GetState().GetPressedKeys()[0];
                         KeyConfig[4] = moveLeft;
-                        myMenu.updateRotLeft(this.moveLeft);
+                        myMenu.updateMoveLeft(this.moveLeft);
                     }
                     else if (moveRight == Keys.None)
                     {
                         moveRight = Keyboard.GetState().GetPressedKeys()[0];
                         KeyConfig[5] = moveRight;
-                        myMenu.updateRotRight(this.moveRight);
+                        myMenu.updateMoveRight(this.moveRight);
                     }
                     changingKey = false;
                 }
@@ -1024,7 +1047,7 @@ namespace Tetris
                             changingKey = true;
                             break;
                         case ACTION.CHANGE_MOVERIGHT:
-                            rotRight = Keys.None;
+                            moveRight = Keys.None;
                             myMenu.updateMoveRight(Keys.None);
                             changingKey = true;
                             break;
@@ -1049,6 +1072,10 @@ namespace Tetris
                                 {
                                     //save shape to board
                                     gameBoard.saveShape(currentShape);
+                                    for(int i = 0; i < 4; i++)
+                                    {
+                                        shapeSetter.shapeSet(gameTime, gameBoard.board[currentShape.cells[i, 0], currentShape.cells[i, 1]].location, 0, 7, 0);
+                                    }
                                     if (!gameBoard.isLoss())
                                     {
                                         //remove lines and calculate scores
@@ -1058,6 +1085,10 @@ namespace Tetris
                                             for (int i = 0; i < linesRemoved.Count; i++)
                                             {
                                                 //figure out particle effects
+                                                for(int j = 0; j < 10; j++)
+                                                {
+                                                    cellBreaker.lineClear(gameTime, gameBoard.board[j, linesRemoved[i]].location, 0, (int)(gameBoard.board[j, linesRemoved[i]].currentCell), 0);
+                                                }
                                                 gameBoard.removeLine(linesRemoved[i]);
                                             }
                                             gravityAfterLineClear = true;
@@ -1066,21 +1097,29 @@ namespace Tetris
                                             {
                                                 case 1:
                                                     currentScore += 40 * (curLevel + 1);
+                                                    soundEffects[1].Play();
                                                     break;
                                                 case 2:
                                                     currentScore += 100 * (curLevel + 1);
+                                                    soundEffects[2].Play();
                                                     break;
                                                 case 3:
                                                     currentScore += 300 * (curLevel + 1);
+                                                    soundEffects[3].Play();
                                                     break;
                                                 case 4:
                                                     currentScore += 1200 * (curLevel + 1);
-                                                        break;
+                                                    soundEffects[4].Play();
+                                                    break;
                                                 default:
                                                     break;
                                             }
 
                                             totalLinesCleared += linesRemoved.Count;
+                                        }
+                                        else
+                                        {
+                                            soundEffects[0].Play();//Thud noise
                                         }
 
                                         
@@ -1175,14 +1214,15 @@ namespace Tetris
                         {
                             if (!hardDropPressed)
                             {
-                                fallRateRestore = shapeFallRate;
-                                shapeFallRate = 10;
-                                dropPressed = true;
+                                while (currentShape.canFall(gameBoard.board))
+                                {
+                                    currentShape.fall();
+                                }
+                                hardDropPressed = true;
                             }
                         }
                         else if (Keyboard.GetState().IsKeyUp(hardDrop))
                         {
-                            shapeFallRate = fallRateRestore;
                             hardDropPressed = false;
                         }
 
@@ -1232,6 +1272,18 @@ namespace Tetris
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
 
+            if (!themePlaying)
+            {
+                MediaPlayer.Play(theme);
+                themePlaying = true;
+                lastPlayTime = gameTime.TotalGameTime;
+            }
+            else if(gameTime.TotalGameTime.TotalMilliseconds - lastPlayTime.TotalMilliseconds > theme.Duration.TotalMilliseconds)
+            {
+                themePlaying = false;
+            }
+
+
             switch (curScreen)
             {
                 case SCREEN.CREDITS:
@@ -1263,7 +1315,10 @@ namespace Tetris
                                 _spriteBatch.Draw(cellTextures[(int)gameBoard.board[i,j].currentCell], new Rectangle((int)gameBoard.board[i,j].location.X, (int)gameBoard.board[i,j].location.Y, (int)cell.X, (int)cell.Y), Color.White);
                         }
                     }
+
                     //Render Particle effects on line clear and set
+                    cellBreaker.Draw(_spriteBatch);
+                    shapeSetter.Draw(_spriteBatch);
 
                     //Render next shape in predictive box
                     _spriteBatch.Draw(shapeTextures[(int)nextType], new Rectangle(1100, 243, 180, 180), Color.White);

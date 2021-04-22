@@ -13,19 +13,48 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin amazing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:amazing.wav
+
+#begin beep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:beep.wav
+
+#begin blankCell.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:blankCell.png
+
+#begin chime.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:chime.wav
+
+#begin crash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:crash.wav
+
 #begin font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
-
-#begin gameFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:gameFont.spritefont
 
 #begin gameFont.spritefont
 /importer:FontDescriptionImporter
@@ -118,6 +147,12 @@
 /processorParam:TextureFormat=Color
 /build:lCell.png
 
+#begin lightning.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:lightning.wav
+
 #begin Main Menu.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -149,6 +184,12 @@
 /processorParam:TextureFormat=Compressed
 /build:menuFont.spritefont
 
+#begin nice.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:nice.mp3
+
 #begin o.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -172,6 +213,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:oCell.png
+
+#begin ohYeah.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ohYeah.wav
 
 #begin s.png
 /importer:TextureImporter
@@ -221,12 +268,36 @@
 /processorParam:TextureFormat=Color
 /build:tCell.png
 
+#begin theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:theme.mp3
+
+#begin thud.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:thud.wav
+
+#begin thunder.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:thunder.wav
+
 #begin titleFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:titleFont.spritefont
+
+#begin wow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:wow.wav
 
 #begin z.png
 /importer:TextureImporter
