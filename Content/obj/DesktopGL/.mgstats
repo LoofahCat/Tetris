@@ -23,6 +23,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/ohYeah.wav","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/ohYeah.xnb","SoundEffectProcessor","SoundEffectContent",141498,141417,0.0968385
 "C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/s.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/s.xnb","TextureProcessor","Texture2DContent",5717,1000085,0.0196455
 "C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/sCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/sCell.xnb","TextureProcessor","Texture2DContent",606,40085,0.001986
+"C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/secretpanel.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/secretpanel.xnb","TextureProcessor","Texture2DContent",15606,2073685,0.2690611
 "C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/t.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/t.xnb","TextureProcessor","Texture2DContent",5627,1000085,0.0203618
 "C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/tCell.png","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/tCell.xnb","TextureProcessor","Texture2DContent",613,40085,0.0018852
 "C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/theme.mp3","C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/bin/DesktopGL/theme.xnb","SongProcessor","SongContent",7377412,123,2.8964994

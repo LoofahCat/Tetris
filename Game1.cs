@@ -8,13 +8,6 @@ using System.Linq;
 using Microsoft.Xna.Framework.Media;
 using System.IO;
 
-/*
- * TODO:
- * 8. Add song and sound effects
- * 10. Add AI
- * 11. Trigger AI after 10 seconds of idle menu.
- */
-
 namespace Tetris
 {
     public class Shape {
@@ -29,25 +22,25 @@ namespace Tetris
             direction = DIRECTION.UP;
             switch (type) {
                 case Game1.SHAPE_TYPE.I:
-                    cells = new int[4, 2] { { 5, 0 }, { 5, 1 }, { 5, 2 }, { 5, 3 } };
+                    cells = new int[4, 2] { { 5, 2 }, { 5, 3 }, { 5, 4 }, { 5, 5 } };
                     break;
                 case Game1.SHAPE_TYPE.J:
-                    cells = new int[4, 2] { { 5, 0 }, { 5, 1 }, { 5, 2 }, { 4, 2 } };
+                    cells = new int[4, 2] { { 5, 2 }, { 5, 3 }, { 5, 4 }, { 4, 4 } };
                     break;
                 case Game1.SHAPE_TYPE.L:
-                    cells = new int[4, 2] { { 5, 0 }, { 5, 1 }, { 5, 2 }, { 6, 2 } };
+                    cells = new int[4, 2] { { 5, 2 }, { 5, 3 }, { 5, 4 }, { 6, 4 } };
                     break;
                 case Game1.SHAPE_TYPE.O:
-                    cells = new int[4, 2] { { 5, 0 }, { 4, 0 }, { 5, 1 }, { 4, 1 } };
+                    cells = new int[4, 2] { { 5, 2 }, { 4, 2 }, { 5, 3 }, { 4, 3 } };
                     break;
                 case Game1.SHAPE_TYPE.S:
-                    cells = new int[4, 2] { { 5, 0 }, { 6, 0 }, { 5, 1 }, { 4, 1 } };
+                    cells = new int[4, 2] { { 5, 2 }, { 6, 2 }, { 5, 3 }, { 4, 3 } };
                     break;
                 case Game1.SHAPE_TYPE.T:
-                    cells = new int[4, 2] { { 5, 1 }, { 6, 1 }, { 4, 1 }, { 5, 2 } };
+                    cells = new int[4, 2] { { 5, 3 }, { 6, 3 }, { 4, 3 }, { 5, 4 } };
                     break;
                 case Game1.SHAPE_TYPE.Z:
-                    cells = new int[4, 2] { { 5, 0 }, { 4, 0 }, { 5, 1 }, { 6, 1 } };
+                    cells = new int[4, 2] { { 5, 2 }, { 4, 2 }, { 5, 3 }, { 6, 3 } };
                     break;
             }
         }
@@ -756,6 +749,7 @@ namespace Tetris
         TimeSpan timeInMainMenu;
         private Texture2D MenuTexture;
         private Texture2D GameBackground;
+        private Texture2D secretPanel;
         private Texture2D iCell;
         private Texture2D iShape;
         private Texture2D jCell;
@@ -778,7 +772,7 @@ namespace Tetris
         private Shape targetShape;
         private SCREEN curScreen;
         private ACTION action;
-
+        private MouseState ms;
         private GameBoard gameBoard;
         private ParticleEmitter cellBreaker;
         private ParticleEmitter shapeSetter;
@@ -957,6 +951,7 @@ namespace Tetris
 
             MenuTexture = Content.Load<Texture2D>("Main Menu");
             GameBackground = Content.Load<Texture2D>("Main Screen");
+            secretPanel = Content.Load<Texture2D>("secretpanel");
             iCell = Content.Load<Texture2D>("iCell");
             iShape = Content.Load<Texture2D>("i");
             jCell = Content.Load<Texture2D>("jCell");
@@ -1007,13 +1002,15 @@ namespace Tetris
 
         protected override void Update(GameTime gameTime)
         {
-            if(timeInMainMenu == new TimeSpan())
+            if (curScreen == SCREEN.MAIN && timeInMainMenu == new TimeSpan())
             {
                 timeInMainMenu = gameTime.TotalGameTime;
+                ms = Mouse.GetState();
             }
             else if(gameTime.TotalGameTime.TotalMilliseconds - timeInMainMenu.TotalMilliseconds > 10000 && curScreen == SCREEN.MAIN)
             {
                 AI_MODE = true;
+                ms = Mouse.GetState();
                 curScreen = SCREEN.PLAY;
                 currentShape = new Shape(getRandomShape());
                 targetShape = gameBoard.getTargetShape(currentShape);
@@ -1028,6 +1025,11 @@ namespace Tetris
                 currentScore = 0;
                 timeInMainMenu = new TimeSpan();
                 myMenu.Update(curScreen);
+            }
+            else if(curScreen == SCREEN.MAIN && (Mouse.GetState().X != ms.X || Mouse.GetState().Y != ms.Y || Keyboard.GetState().GetPressedKeyCount() > 0))
+            {
+                timeInMainMenu = gameTime.TotalGameTime;
+                ms = Mouse.GetState();
             }
             action = myMenu.Update(curScreen);
             cellBreaker.Update(gameTime);
@@ -1377,12 +1379,12 @@ namespace Tetris
                         else
                         {
                             currentShape.moveToTarget(targetShape, gameBoard.board);
-                            if(Keyboard.GetState().GetPressedKeyCount() > 0)
+                            if(Keyboard.GetState().GetPressedKeyCount() > 0 || Mouse.GetState().X != ms.X || Mouse.GetState().Y != ms.Y)
                             {
                                 AI_MODE = false;
                                 curScreen = SCREEN.MAIN;
                                 myMenu.Update(curScreen);
-
+                                timeInMainMenu = gameTime.TotalGameTime;
                             }
                         }
                         break;
@@ -1402,12 +1404,9 @@ namespace Tetris
             if (!themePlaying)
             {
                 MediaPlayer.Play(theme);
+                MediaPlayer.IsRepeating = true;
                 themePlaying = true;
                 lastPlayTime = gameTime.TotalGameTime;
-            }
-            else if(gameTime.TotalGameTime.TotalMilliseconds - lastPlayTime.TotalMilliseconds > theme.Duration.TotalMilliseconds)
-            {
-                themePlaying = false;
             }
 
 
@@ -1448,7 +1447,8 @@ namespace Tetris
                     shapeSetter.Draw(_spriteBatch);
 
                     //Render next shape in predictive box
-                    _spriteBatch.Draw(shapeTextures[(int)nextType], new Rectangle(1100, 243, 180, 180), Color.White);
+                    _spriteBatch.Draw(shapeTextures[(int)nextType], new Rectangle((int)(screenWidth*0.5729f), (int)(screenHeight*0.225f), (int)(screenWidth*0.0989f), (int)(screenHeight*0.16667f)), Color.White);
+                    _spriteBatch.Draw(secretPanel, new Rectangle((int)(screenWidth / 4.4f), 0, screenHeight, screenHeight), Color.White);
                     break;
             }
 

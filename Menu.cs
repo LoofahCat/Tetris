@@ -191,8 +191,9 @@ namespace Tetris
                 {
                     action = Game1.ACTION.QUIT;
                 }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                else if (Keyboard.GetState().IsKeyDown(Keys.Enter) && scr != Game1.SCREEN.PLAY)
                 {
+
                     action = currentChoices[iconPosition].action;
                     stopFunction = true;
                 }

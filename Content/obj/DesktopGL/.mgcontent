@@ -28,6 +28,7 @@
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/ohYeah.wav</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/s.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/sCell.png</File>
+    <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/secretpanel.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/t.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/tCell.png</File>
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/theme.mp3</File>
@@ -39,6 +40,7 @@
     <File>C:/Users/abe.gunther/source/repos/Abe/Tetris/Content/zCell.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

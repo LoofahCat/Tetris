@@ -56,3 +56,4 @@ C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\bee
 C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\chime.xnb
 C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\lightning.xnb
 C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\thunder.xnb
+C:\Users\abe.gunther\source\repos\Abe\Tetris\bin\Debug\netcoreapp3.1\Content\secretpanel.xnb
