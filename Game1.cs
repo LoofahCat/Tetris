@@ -21,7 +21,7 @@ namespace Tetris
         public int[,] cells;
         public Game1.SHAPE_TYPE type;
         public enum DIRECTION { UP, RIGHT, DOWN, LEFT };
-        DIRECTION direction;
+        public DIRECTION direction;
 
         public Shape(Game1.SHAPE_TYPE shape)
         {
@@ -50,16 +50,10 @@ namespace Tetris
                     cells = new int[4, 2] { { 5, 0 }, { 4, 0 }, { 5, 1 }, { 6, 1 } };
                     break;
             }
-
         }
-        /* NOTES:
-         * I need a method that, given a shape, will make one manipulation to this shape to bring this shape closer to the parameter shape
-         * I need a method that deletes a shape from the GameBoard (Exactly the same as the SaveShape method, but reversed). 
-         * Save the previous shape to the board memory, then remove it to compute a new heuristic score
-         * Try a shape in each location and rotation on the board. Get Max score and leave the shape there. 
-         * In small increments of time, allow AI to call method to bring shapes together.
-         * Modify other values accordingly for when AI is running.
-         */
+
+        
+
         #region "Shape Movement Methods"
         public void fall()
         {
@@ -109,6 +103,7 @@ namespace Tetris
             {
                 cells[i, 0] += 1;
             }
+            kick();
         }
 
         public bool canMoveLeft(Tile[,] board)
@@ -134,6 +129,7 @@ namespace Tetris
             {
                 cells[i, 0] -= 1;
             }
+            kick();
         }
 
         public void rotRight(Tile[,] board)
@@ -649,12 +645,19 @@ namespace Tetris
         {
             int leftOverlap = 0;
             int rightOverlap = 0;
-            for(int i = 0; i < 4; i++)
+            int topOverlap = 0;
+            for (int i = 0; i < 4; i++)
             {
                 if (cells[i, 0] > 9)
                     rightOverlap++;
                 else if (cells[i, 0] < 0)
                     leftOverlap++;
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (cells[i, 1] < 0)
+                    topOverlap++;
             }
 
             if(leftOverlap > 0)
@@ -670,6 +673,66 @@ namespace Tetris
                 {
                     moveLeft();
                 }
+            }
+            if(topOverlap > 0)
+            {
+                for(int i = 0; i < topOverlap; i++)
+                {
+                    fall();
+                }
+            }
+        }
+
+        public void moveToTarget(Shape targetShape, Tile[,] board)
+        {
+            //if CurrentShape and targetShape are not in the same orientation, rotate the currentShape
+            if (direction != targetShape.direction)
+            {
+                switch (targetShape.direction)
+                {
+                    case DIRECTION.LEFT:
+                        rotLeft(board);
+                        break;
+                    case DIRECTION.RIGHT:
+                        rotRight(board);
+                        break;
+                    default:
+                        rotRight(board);
+                        break;
+                }
+            }
+            //if CurrentShape.X and targetShape.X are not the same, move in the x-axis
+            else
+            {
+                if (targetShape.cells[0, 0] > cells[0, 0])
+                {
+                    moveRight();
+                }
+                else if (targetShape.cells[0, 0] < cells[0, 0])
+                {
+                    moveLeft();
+                }
+            }
+        }
+
+        public bool canMoveUp()
+        {
+            bool canMove = true;
+            for(int i = 0; i < 4; i++)
+            {
+                if((cells[i,1] == 0 && this.type != Game1.SHAPE_TYPE.T) || (cells[i,1] == 1 && this.type == Game1.SHAPE_TYPE.T))
+                {
+                    return false;
+                }
+            }
+            return canMove;
+        }
+
+        public void moveUp()
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                cells[i, 1] -= 1;
             }
         }
         #endregion
@@ -689,6 +752,8 @@ namespace Tetris
         private SpriteFont font;
         Song theme;
         bool themePlaying;
+        bool AI_MODE;
+        TimeSpan timeInMainMenu;
         private Texture2D MenuTexture;
         private Texture2D GameBackground;
         private Texture2D iCell;
@@ -710,6 +775,7 @@ namespace Tetris
         private Texture2D nextShape;
         private SHAPE_TYPE nextType;
         private Shape currentShape;
+        private Shape targetShape;
         private SCREEN curScreen;
         private ACTION action;
 
@@ -792,6 +858,8 @@ namespace Tetris
             moveRightPressed = false;
             rotLeftPressed = false;
             rotRightPressed = false;
+            AI_MODE = false;
+            timeInMainMenu = new TimeSpan();
             shapeFallRate = 1000;
             fallRateRestore = 1000;
             totalShapesUsed = 0;
@@ -939,6 +1007,28 @@ namespace Tetris
 
         protected override void Update(GameTime gameTime)
         {
+            if(timeInMainMenu == new TimeSpan())
+            {
+                timeInMainMenu = gameTime.TotalGameTime;
+            }
+            else if(gameTime.TotalGameTime.TotalMilliseconds - timeInMainMenu.TotalMilliseconds > 10000 && curScreen == SCREEN.MAIN)
+            {
+                AI_MODE = true;
+                curScreen = SCREEN.PLAY;
+                currentShape = new Shape(getRandomShape());
+                targetShape = gameBoard.getTargetShape(currentShape);
+                nextType = getRandomShape();
+                lastShapeFallTime = gameTime.TotalGameTime;
+                gravityAfterLineClear = false;
+                totalShapesUsed = 0;
+                totalLinesCleared = 0;
+                gameBoard = new GameBoard(screenWidth, screenHeight, cell);
+                gameBoard.initializeBoardValues();
+                curLevel = 0;
+                currentScore = 0;
+                timeInMainMenu = new TimeSpan();
+                myMenu.Update(curScreen);
+            }
             action = myMenu.Update(curScreen);
             cellBreaker.Update(gameTime);
             shapeSetter.Update(gameTime);
@@ -1015,6 +1105,7 @@ namespace Tetris
                             break;
                         case ACTION.BACK:
                             curScreen = myMenu.destinationScreen;
+                            timeInMainMenu = gameTime.TotalGameTime;
                             break;
                         case ACTION.QUIT:
                             Quit();
@@ -1061,7 +1152,7 @@ namespace Tetris
                     case SCREEN.PLAY:
                         if (!gravityAfterLineClear)
                         {
-                            if (gameTime.TotalGameTime.TotalMilliseconds - lastShapeFallTime.TotalMilliseconds > shapeFallRate - (curLevel*100))
+                            if (gameTime.TotalGameTime.TotalMilliseconds - lastShapeFallTime.TotalMilliseconds > (AI_MODE ? 50 : (shapeFallRate - (curLevel*100))))
                             {
                                 if (currentShape.canFall(gameBoard.board))
                                 {
@@ -1125,6 +1216,10 @@ namespace Tetris
                                         
                                         //update currentShape and NextShape
                                         currentShape = new Shape(nextType);
+                                        if (AI_MODE)
+                                        {
+                                            targetShape = gameBoard.getTargetShape(currentShape);
+                                        }
                                         nextType = getRandomShape();
 
                                         //Increment Level for scoring and speed
@@ -1133,16 +1228,33 @@ namespace Tetris
                                     }
                                     else
                                     {
-                                        curScreen = SCREEN.LOSE;
-                                        myMenu.Update(curScreen);
-                                        bool breaker = false;
-                                        for(int i = 0; i < HighScores.Length; i++)
+                                        if (!AI_MODE)
                                         {
-                                            if(currentScore > HighScores[i] && !breaker)
+                                            curScreen = SCREEN.LOSE;
+                                            myMenu.Update(curScreen);
+                                            bool breaker = false;
+                                            for (int i = 0; i < HighScores.Length; i++)
                                             {
-                                                HighScores[i] = currentScore;
-                                                breaker = true;
+                                                if (currentScore > HighScores[i] && !breaker)
+                                                {
+                                                    HighScores[i] = currentScore;
+                                                    breaker = true;
+                                                }
                                             }
+                                        }
+                                        else
+                                        {
+                                            curScreen = SCREEN.PLAY;
+                                            currentShape = new Shape(getRandomShape());
+                                            nextType = getRandomShape();
+                                            lastShapeFallTime = gameTime.TotalGameTime;
+                                            gravityAfterLineClear = false;
+                                            totalShapesUsed = 0;
+                                            totalLinesCleared = 0;
+                                            gameBoard = new GameBoard(screenWidth, screenHeight, cell);
+                                            gameBoard.initializeBoardValues();
+                                            curLevel = 0;
+                                            currentScore = 0;
                                         }
                                     }
                                 }
@@ -1163,103 +1275,118 @@ namespace Tetris
                                 gravityAfterLineClear = false;
                             }
                         }
-                        //Get User Input and respond accordingly
+                        if (!AI_MODE)
+                        {
+                            //Get User Input and respond accordingly
 
-                        //DROP
-                        if (Keyboard.GetState().IsKeyDown(drop))
-                        {
-                            if (!dropPressed)
+                            //DROP
+                            if (Keyboard.GetState().IsKeyDown(drop))
                             {
-                                fallRateRestore = shapeFallRate;
-                                shapeFallRate = 100;
-                                dropPressed = true;
-                            }
-                        }
-                        else if(Keyboard.GetState().IsKeyUp(drop))
-                        {
-                            shapeFallRate = fallRateRestore;
-                            dropPressed = false;
-                        }
-
-                        //ROTATE LEFT
-                        if (Keyboard.GetState().IsKeyDown(rotLeft))
-                        {
-                            if (!rotLeftPressed)
-                            {
-                                currentShape.rotLeft(gameBoard.board);
-                                rotLeftPressed = true;
-                            }
-                        }
-                        else if (Keyboard.GetState().IsKeyUp(rotLeft))
-                        {
-                            rotLeftPressed = false;
-                        }
-
-                        //ROTATE RIGHT
-                        if (Keyboard.GetState().IsKeyDown(rotRight))
-                        {
-                            if (!rotRightPressed)
-                            {
-                                currentShape.rotRight(gameBoard.board);
-                                rotRightPressed = true;
-                            }
-                        }
-                        else if (Keyboard.GetState().IsKeyUp(rotRight))
-                        {
-                            rotRightPressed = false;
-                        }
-
-                        //HARD DROP
-                        if (Keyboard.GetState().IsKeyDown(hardDrop))
-                        {
-                            if (!hardDropPressed)
-                            {
-                                while (currentShape.canFall(gameBoard.board))
+                                if (!dropPressed)
                                 {
-                                    currentShape.fall();
+                                    fallRateRestore = shapeFallRate;
+                                    shapeFallRate = 100;
+                                    dropPressed = true;
                                 }
-                                hardDropPressed = true;
                             }
-                        }
-                        else if (Keyboard.GetState().IsKeyUp(hardDrop))
-                        {
-                            hardDropPressed = false;
-                        }
-
-                        //MOVE LEFT
-                        if (Keyboard.GetState().IsKeyDown(moveLeft))
-                        {
-                            if (!moveLeftPressed)
+                            else if (Keyboard.GetState().IsKeyUp(drop))
                             {
-                                if (currentShape.canMoveLeft(gameBoard.board))
-                                {
-                                    currentShape.moveLeft();
-                                }
-                                moveLeftPressed = true;
+                                shapeFallRate = fallRateRestore;
+                                dropPressed = false;
                             }
-                        }
-                        else if (Keyboard.GetState().IsKeyUp(moveLeft))
-                        {
-                            moveLeftPressed = false;
-                        }
 
-                        //MOVE RIGHT
-                        if (Keyboard.GetState().IsKeyDown(moveRight))
-                        {
-                            if (!moveRightPressed)
+                            //ROTATE LEFT
+                            if (Keyboard.GetState().IsKeyDown(rotLeft))
                             {
-                                if (currentShape.canMoveRight(gameBoard.board))
+                                if (!rotLeftPressed)
                                 {
-                                    currentShape.moveRight();
+                                    currentShape.rotLeft(gameBoard.board);
+                                    rotLeftPressed = true;
                                 }
-                                moveRightPressed = true;
+                            }
+                            else if (Keyboard.GetState().IsKeyUp(rotLeft))
+                            {
+                                rotLeftPressed = false;
+                            }
+
+                            //ROTATE RIGHT
+                            if (Keyboard.GetState().IsKeyDown(rotRight))
+                            {
+                                if (!rotRightPressed)
+                                {
+                                    currentShape.rotRight(gameBoard.board);
+                                    rotRightPressed = true;
+                                }
+                            }
+                            else if (Keyboard.GetState().IsKeyUp(rotRight))
+                            {
+                                rotRightPressed = false;
+                            }
+
+                            //HARD DROP
+                            if (Keyboard.GetState().IsKeyDown(hardDrop))
+                            {
+                                if (!hardDropPressed)
+                                {
+                                    while (currentShape.canFall(gameBoard.board))
+                                    {
+                                        currentShape.fall();
+                                    }
+                                    hardDropPressed = true;
+                                }
+                            }
+                            else if (Keyboard.GetState().IsKeyUp(hardDrop))
+                            {
+                                hardDropPressed = false;
+                            }
+
+                            //MOVE LEFT
+                            if (Keyboard.GetState().IsKeyDown(moveLeft))
+                            {
+                                if (!moveLeftPressed)
+                                {
+                                    if (currentShape.canMoveLeft(gameBoard.board))
+                                    {
+                                        currentShape.moveLeft();
+                                    }
+                                    moveLeftPressed = true;
+                                }
+                            }
+                            else if (Keyboard.GetState().IsKeyUp(moveLeft))
+                            {
+                                moveLeftPressed = false;
+                            }
+
+                            //MOVE RIGHT
+                            if (Keyboard.GetState().IsKeyDown(moveRight))
+                            {
+                                if (!moveRightPressed)
+                                {
+                                    if (currentShape.canMoveRight(gameBoard.board))
+                                    {
+                                        currentShape.moveRight();
+                                    }
+                                    moveRightPressed = true;
+                                }
+                            }
+                            else if (Keyboard.GetState().IsKeyUp(moveRight))
+                            {
+                                moveRightPressed = false;
                             }
                         }
-                        else if (Keyboard.GetState().IsKeyUp(moveRight))
+                        else
                         {
-                            moveRightPressed = false;
+                            currentShape.moveToTarget(targetShape, gameBoard.board);
+                            if(Keyboard.GetState().GetPressedKeyCount() > 0)
+                            {
+                                AI_MODE = false;
+                                curScreen = SCREEN.MAIN;
+                                myMenu.Update(curScreen);
+
+                            }
                         }
                         break;
+
                 }
 
             }

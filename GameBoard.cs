@@ -18,6 +18,9 @@ namespace Tetris
         public int screenHeight { get; set; }
         public Vector2 cell { get; set; }
 
+        public Shape previousShape;
+        public Shape targetShape;
+
         double a;//AggregateHeight
         double b;//CompleteLines
         double c;//Holes
@@ -33,6 +36,8 @@ namespace Tetris
             b = 0.760666;
             c = -0.35663;
             d = -0.184483;
+
+            previousShape = new Shape(Game1.SHAPE_TYPE.I);
         }
 
         #region "GamePlay Methods"
@@ -180,19 +185,107 @@ namespace Tetris
 
 
         #region "AI Algorithm Methods"
+        public void deletePreviousShape()
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                board[previousShape.cells[i, 0], previousShape.cells[i, 1]].isFilled = false;
+            }
+        }
+
+        public Shape getTargetShape(Shape shape)
+        {
+            previousShape = shape;
+            targetShape = new Shape(shape.type);
+            double bestScore = -999;
+            double score = 0;
+            for (int dir = 0; dir < 4; dir++)//Test for each rotation (UP, RIGHT, DOWN, LEFT)
+            {
+                while (previousShape.canMoveUp())//Move Shape Up
+                {
+                    previousShape.moveUp();
+                }
+                while (previousShape.canMoveLeft(board))//Move shape all the way to the left
+                {
+                    previousShape.moveLeft();
+                }
+                while (previousShape.canMoveRight(board))
+                {
+                    while (previousShape.canFall(board))//Move shape down
+                    {
+                        previousShape.fall();
+                    }
+
+                    saveShape(previousShape);//Save shape
+
+                    score = getHeuristicScore();//Check score
+                    if (score > bestScore)//If score is better than current score, save target shape
+                    {
+                        bestScore = score;
+                        for(int i = 0; i < 4; i++)
+                        {
+                            targetShape.cells[i, 0] = previousShape.cells[i, 0];
+                            targetShape.cells[i, 1] = previousShape.cells[i, 1];
+                        }
+                        targetShape.direction = previousShape.direction;
+                    }
+
+                    deletePreviousShape();//delete shape
+
+                    while (previousShape.canMoveUp())//move all the way up
+                    {
+                        previousShape.moveUp();
+                    }
+
+                    previousShape.moveRight();//move 1 to the right
+                }
+
+                //Check last column
+                while (previousShape.canFall(board))//Move shape down
+                {
+                    previousShape.fall();
+                }
+
+                saveShape(previousShape);//Save shape
+
+                score = getHeuristicScore();//Check score
+                if (score > bestScore)//If score is better than current score, save target shape
+                {
+                    bestScore = score;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        targetShape.cells[i, 0] = previousShape.cells[i, 0];
+                        targetShape.cells[i, 1] = previousShape.cells[i, 1];
+                    }
+                    targetShape.direction = previousShape.direction;
+                }
+
+                deletePreviousShape();//delete shape
+
+                while (previousShape.canMoveUp())//move all the way up
+                {
+                    previousShape.moveUp();
+                }
+
+                previousShape.rotRight(board);
+            }
+
+            return targetShape;
+        }
+
         public double getHeuristicScore()
         {
             double score = 0;
             double aggregateHeight = getAggregateHeight();
             double completeLines = getCompleteLines();
-            double holes = 0;
-            double bumpiness = 0;
+            double holes = getHoles();
+            double bumpiness = getBumpiness();
 
             score = a * aggregateHeight + b * completeLines + c * holes + d * bumpiness;
             return score;
         }
 
-        private double getAggregateHeight()//TODO: Test Method
+        private double getAggregateHeight()
         {
             double height = 0;
             for(int i = 0; i < 10; i++)
@@ -236,12 +329,12 @@ namespace Tetris
             return lines;
         }
 
-        private double getHoles()//TODO: Test Method
+        private double getHoles()
         {
             double holes = 0;
             for(int i = 0; i < 10; i++)
             {
-                for(int j = 0; j < 25; j++)
+                for(int j = 1; j < 25; j++)
                 {
                     if(!board[i,j].isFilled && board[i, j - 1].isFilled)
                     {
